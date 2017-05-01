@@ -16,9 +16,10 @@ var Page = db.define('page', {
             return '/wiki/' + this.urlTitle;
         }
     },
-        
+
     hooks: {
         beforeValidate: function(page, options) {
+            console.log("page in models/index", page)
             page.urlTitle = page.title.replace(/ /g, "_").replace(/[^\w\s]/gi, '');
         }
     }
@@ -32,6 +33,8 @@ var User = db.define('user', {
         validate: { isEmail: true }
     }
 });
+
+Page.belongsTo(User, {as: 'author'})
 
 module.exports = {
     db: db,
